@@ -11,6 +11,7 @@ options(scipen=999)
 library(pander)
 panderOptions('big.mark', ',')
 library(diagram)
+library(lme4)
 library(dplyr)
 library(ggplot2)
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
@@ -327,7 +328,7 @@ Five predictions from our mixed model were checked against the predictions from 
 
 ##### Plot of the predicted proportion of female authors over time for five randomly selected journals
 
-```{r predictions, fig.width=5, fig.height=5}
+```{r predictions, fig.width=6, fig.height=4}
 ## get data on journals and gender for individual papers (code from 1_test_mixed_model.R)
 load('For.Sample.Size.RData') # from 0_extract_data.R
 selected = filter(selected, year >= 2002)
