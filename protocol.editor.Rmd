@@ -1,14 +1,19 @@
 ---
-title: "Protocol for editor-in-chief paper (Version 0.1)"
+title: "Protocol for editor-in-chief paper (Version 0.2)"
 author: ""
-date: "13 August 2018"
+date: "6 September 2018"
 output: word_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, comment = '', message = FALSE, dpi=300, fig.width = 8, fig.height = 6)
+options(scipen=999)
+library(pander)
+panderOptions('big.mark', ',')
 library(diagram)
-#load()
+library(dplyr)
+library(ggplot2)
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 ```
 
 # Title
@@ -27,7 +32,7 @@ Is a change in a journal's editor-in-chief associated with an increase in the pr
 
 To examine how a change in a journal's editor-in-chief impacts on the proportion of female authors at that journal.
 
-# Significance
+# Importance of this study
 
 Female researchers have been under-represented as published authors for many years (Jagsi et al, 2006).
 Although the proportion of female authors has been increasing over time, the pace is relatively slow and in some fields it will be many decades until parity is reached (Holman et al, 2018).
@@ -35,11 +40,12 @@ Although the proportion of female authors has been increasing over time, the pac
 Academic journals are key to the research process as they disseminate new knowledge. 
 Publishing in journals is also vital for a researcher's career progression, and so any bias against female researchers will likely harm their career.
 
-In this study we examine whether there is an association between a journal's editor-in-chief and the proportion of female authors in that journal. 
-A journal's editor-in-chief has a position of power and could make changes at a journal to increase the propotion of female authors. 
-For example, they may recruit more female associate editors, who are likely to be less biased against female researchers. 
+In this study we examine whether there is an association between a change in a journal's editor-in-chief and the proportion of female authors in that journal. 
+A journal's editor-in-chief has a position of power and could make changes at a journal to increase the proportion of female authors. 
+For example, they may recruit more female associate editors and/or reviewers (Fox et al 2018), who are likely to be more favourable towards female researchers (Murray et al 2018). 
+More directly, they may invite more female authors to publish commentaries and editorials, and make fewer desk rejections of papers with female authors.
 
-We will investigate whether a change in a journal's editors-in-chief is associated with a change in the proportion of female authors.
+We will investigate whether a change in a journal's editors-in-chief is associated with a subsequent change in the proportion of female authors.
 If we find an association, then we will be able to provide clear and actionable advice to publishers and societies concerning the importance their editors-in-chief.
 
 # Hypotheses
@@ -50,27 +56,46 @@ If we find an association, then we will be able to provide clear and actionable 
 
 * from a male to female editor(s)-in-chief
 
-* from an older to younger editor(s)-in-chief
+* from a more experienced to less experienced editor(s)-in-chief
 
 * from a male to female editor(s)-in-chief at a society-run journal
 
 # Background
 
-*Just bullet ideas for now*
+#### The importance of authoring papers
 
-* Investigator Holman has recently published on the recent change over time in the proportion of female authors.
+Journals have a key role in the communication of science, and publishing papers is an essential task for scientists to communicate their findings. Publications are also an important currency in science. Getting published is vital for a scientist's career as the number and quality of journal articles are key criteria for hiring and promotion (Moher et al, 2018).
 
-* Proportion of female authors has increased in recent times, but is still well behind parity (NEJM).
+#### Previous research
 
-* This lack of balance indicates a potentially huge waste of talent.
+Recent research has highlighted that women are under-represented as authors on published papers. This includes: 
 
-* Journals play a hugely important role in the communication of science.
+* Investigator Holman and colleagues examined the change over time in the proportion of female authors across a wide range of scientific fields (Holman et al, 2018). They predicted that for many journals it would be decades before gender parity was acheived. 
 
-* Getting published is also vital for a scientists career as the number and quality of journal articles are key criteria for hiring and promotion.
+* A study which found that although the proportion of female authors had increased over 35 years (most recent year of 2004) at six prominent medical journals, the proportion was still well behind parity (Jagsi et al, 2006). 
 
-* Potential for this study to provide positive and actionable advice (Stewart and Valian, advice).
-Stewart and Valian talk about the importance of formal leaders.
+* A related study which confirmed the same trends in the same journals between 2010 and 2011 (Erren et al, 2014). 
 
+* A study of six gastroenterology journals which found that female first authors increased from 9% in 1992 to 29% in 2012 (Long et al, 2015)
+
+Overall, although the trends are in the right direction, "Change has been frustratingly
+slow" (Dickersin et al, 2010).
+
+The shortfall of female authors is has received serious consideration, and prominent journals such as *Nature* (Nature editors 2018) and *BMJ* (Rexrode, 2016) have written editorials on improving equity.
+
+The lack of gender balance indicates a potentially huge waste of talent. It also reduces the diversity of scientific ideas and hence hinders progress (Jagsi et al, 2008).
+
+#### Editors-in-chief
+
+One potential way to increase the number of female authors is to increase the number of women in senior positions in journals, such as associate editors and editors-in-chief. In 2006, The US National Academy of Sciences and Institute of Medicine called for, “reasonable representation of women on editorial boards and in other significant leadership positions” (National Academy of Science, 2006). More recently, "The Women in Coastal Geoscience and Engineering network" advocated for more women in prestige roles, including journal editorial boards (Hamylton et al, 2018). A letter from five prominent US female authors on gender imbalance stated that, "women’s roles as editors are crucial" (Dickersin et al, 2010). Similarly, Stewart and Valian have discussed the importance of formal leaders for achieving gender equity in academia (Stewart & Valian, 2018).
+
+A study examined the gender distribution of over 3,000 editors-in-chief and editorial board members at 16 major medical journals for the years 1970 to 2005 (Jagsi et al, 2008). The percent of women rose from 1.4% in 1970 to 16.0% in 2005. An encouraging increase, but far from parity.
+
+A relatively early study of editor's gender found just 4 women and 92 men (4% female) in the 100 most influential medical journals in 1994 (Hatfield et al, 1995). A more recent prevalence study found just 10 out of 63 editors-in-chief were women (16\% female) in the 60 top medical journals (Amrein et al, 2011).
+
+##### Background summary
+
+There has been an increase in female editors-in-chief over time and clear increase in female authors over time. Our research question is whether these two changes are related.
 
 # Outcome
 
@@ -86,7 +111,7 @@ We will examine two versions of this outcome:
 ## Existing data
 
 This study builds upon the openly available data from investigator Holman and colleagues, who created a large data set of authors' gender for hundreds of PubMed-indexed journals (https://github.com/lukeholman/genderGapCode).
-These data cover 6525 journals for the years 2002 to 2016.
+These data cover 6,525 journals for the years 2002 to 2016.
 These data include papers from the pre-print server *arXiv*, but we do not use these data here because pre-print servers do not have an editor-in-chief.
 
 ## Sample size 
@@ -103,7 +128,7 @@ We restricted the data to:
 
 The three unknown parameters for our sample size calculation were:
 
-1. The number of journals --- we examined 100, 150 and 200.
+1. The number of journals sampled --- we examined 100, 150 and 200.
 
 2. The frequency of the change in editor(s)-in-chief --- we assumed average editorship of 5 years, meaning an annual change probability of 0.2. Multiple changes per journal over time were allowed.
 
@@ -111,13 +136,13 @@ The three unknown parameters for our sample size calculation were:
 
 The stages of the simulation were:
 
-1. Randomly select 100 to 200 journals from the available set of journals.
+1. Randomly select 100 to 200 journals from the available set of 500 journals.
 
 2. Randomly create the editor-in-chief change in each journal in each year.
 
 3. Randomly increase the number of female authors according to the expected increase. If a paper already had all female authors, then another female author was added. If a paper had any male authors, then one of these was replaced with a female author.
 
-4. Run the regression model to estimate the impact of the change in editor-in-chief
+4. Run the regression model to estimate the impact of the change in editor-in-chief.
 
 5. Repeat steps 1 to 4 one-hundred times, then calculate the statistical power.
 
@@ -125,8 +150,8 @@ We simplified our statistical approach compared with the methods used by Holman 
 We used a Poisson regression model for the number of female authors:
 
 $$ f_{i,j} \sim Poisson(\mu_{i,j}), \qquad i=1,\ldots, N_j,\, j=1,\ldots,J,$$
-$$ \log(\mu_{i,j}) = \log(n_{i,j}) + \beta_0 + \gamma_{j,0} + time_{i,j}(\beta_1+\gamma_{j,1}) + time^2_{i,j}(\beta_2+\gamma_{j,2}) + \beta_4 change_{i,j}, $$
-$$ \gamma_{0:3} \sim MVN(0, \Omega), $$
+$$ \log(\mu_{i,j}) = \log(n_{i,j}) + \beta_0 + \gamma_{j,0} + time_{i,j}(\beta_1+\gamma_{j,1}) + time^2_{i,j}(\beta_2+\gamma_{j,2}) + \beta_3 change_{i,j}, $$
+$$ \gamma_{0:2} \sim MVN(0, \Omega), $$
 
 Where (*i,j*) is the *i*th paper at the *j*th journal, and *J* is the total number of journals, and $N_j$ is the total number of papers for journal $j$.
 We modelled the number of female authors ($f_{i,j}$) with an offset of the total number of authors ($n_{i,j}$).
@@ -143,29 +168,35 @@ source('1b_examine_sample_size.R')
 power.plot
 ```
 
+Based on these results we decided to collect a sample of 200 journals.
+
+##### Statistical power for interactions
+
+We will have less power for our three proposed interactions between a change in editor-in-chief and the characteristics of the editor/journal. We believe the results could still be of interest because they should provide an indication of the size and direction of the interaction, and could help explain the mechanism of any change in female authors after an editor-in-chief change.
+
 ## Data
 
-### Editor-in-chief's age
+### Editor-in-chief's career age
 
-We will estimate the editor-in-chief's age using the date of their first publication. 
-So for each editor-in-chief, we will attempt to get their publication history in *Scopus* using their name and institution (if available). 
-The year of their first publication represents their time in research and so will be a proxy for their age. 
-It will be a poor proxy for those researchers who had another career prior to working in research.
+We will estimate the editor-in-chief's academic career age using the date of their first publication. So for each editor-in-chief, we will attempt to get their publication history in *Scopus* using their name and institution (if available). 
+The year of their first publication represents their time in research and so will be a proxy for their career age. 
 
 This variable will be used to estimate an interaction effect between the change and proportion of female and change in editors.
 
 ### Journal types
 
-We will examine two types of journals:
+We will examine three types of journals:
 
 * Society journals, which are the official journal of a learned society, e.g., *The Australian and New Zealand Journal of Statistics*
 
-* Professional journals
+* Professional journals run for a profit 
 
 We will stratify the sample to get an equal number of each.
 Our reasoning is that the editors-in-chief for society journals may have more control over the direction of the journal, and we therefore may see a greater increase in the proportion of female authors at these journals.
 
-We will use *Ulrich*'s to identify society journals. Comes from the "Corporate Author" field in the "Publisher & Ordering Details" subsection.
+We will use *Ulrich*'s to identify society journals. This information comes from the "Corporate Author" field in the "Publisher & Ordering Details" subsection.
+
+We will also use *Ulrich*'s to get data on the speciality of the journal and whether the journal is Open Access (OA). We will stratify on OA status to get a representative percentage of OA journals.
 
 ### Data on changes in editors-in-chief
 
@@ -188,16 +219,16 @@ The data recorded will be:
 
 * The date of the change. We aim to get the date to the level of month and year. We will use the issue date that the new editor was on the journal's masthead. 
 
-* The Editor-in-chief's institution, if available. This will help estimate the editor-in-chief's age.
+* The Editor-in-chief's institution, if available. This will help estimate the editor-in-chief's career age by allowing a better match in *Scopus*.
 
 * The Editor-in-chief's country, if available. This will help with the gender matching algorithm.
 
+We will also search the included journals to check for specific editorial policies on gender balance. This search will be made for editorials, after 2001, that mention the word "gender" or "female" in their title, abstract or keywords. The search results will be hand-screened to look for potential policy changes. These changes will be noted in a list and potentially summarised by date and type, but will not be used in our statistical analysis.
 
 ## Confounding
 
 There is potential confounding in this observational study.
-We know that there has been an increase in female authors over time. 
-It's likely that there has also been an increase in female editors-in-chief. 
+We know from previous studies that there has been an increase in female authors over time and that there has also been an increase in female editors-in-chief. 
 Hence the two variables could be related by a backdoor association (see diagram).
 
 ```{r diagram}
@@ -209,7 +240,7 @@ M[3, 1] = M[2, 1] = "' '"
 par(mai=c(0.1,0.1,0.1,0.1))
 plotmat(M, pos=pos, curve = 0, name = labels, shadow.size = 0,
               lwd = 1, box.lwd = 2, box.type = "rect",
-              box.prop = 1.0)
+              box.prop = 1.0, box.cex = 1.5)
 ```
 
 Another possibility is that there is a causal association between editors-in-chief and authors, because the change in editors-in-chief occurred before the increase in female authors.
@@ -224,35 +255,179 @@ M[5, 4] = M[4, 3] = M[3, 2] = M[3, 1] = M[2, 1] = "' '"
 par(mai=c(0.1,0.1,0.1,0.1))
 plotmat(M, pos=pos, curve = 0, name = labels, shadow.size = 0,
               lwd = 1, box.lwd = 2, box.type = "rect",
-              box.prop = 1.0)
+              box.prop = 1.0, box.cex = 1.5)
 ```
 
 Time is clearly a potential confounder and hence we will adjust for time in our models.
-We will adjust for a non-linear time using a similar approach as Holman et al (2018).
 
 ## Statistical methods
 
-We will assume a lag between a change in editor and impact on the proportion of female authors of six months.
+We will use a mixed effects regression model with a random intercept and slope for each journal. The random intercept allows for a between-journal difference in the average proportion of female authors. The random slope allows for a between-journal difference in the change over time in the proportion of female authors. Both these features were apparent in the results of the previous analysis by Holman et al (2018).
 
-This protocol was written using R Markdown. 
+The Poisson regression model is: 
+$$ f_{i,j} \sim Poisson(\mu_{i,j}), \qquad i=1,\ldots, N_j,\, j=1,\ldots,J,$$
+$$ \log(\mu_{i,j}) = \log(n_{i,j}) + \beta_0 + \gamma_{j,0} + time_{i,j}(\beta_1+\gamma_{j,1}) + time^2_{i,j}(\beta_2+\gamma_{j,2}) + \beta_3 change_{i,j}, $$
+$$ \gamma_{0:2} \sim MVN(0, \Omega), $$
 
-### Negative control
+Where (*i,j*) is the *i*th paper at the *j*th journal, and *J* is the total number of journals, and $N_j$ is the total number of papers for journal $j$.
+We modelled the number of female authors ($f_{i,j}$) with an offset of the total number of authors ($n_{i,j}$).
 
-We will consider the use a negative control. 
+The $\gamma$ parameters are journal-level random effects for the intercept, linear slope and quadratic slope, which are estimated using a multivariate normal (MVN).
+This means each journal has its own average proportion of female authors and its own non-linear change over time. It also means that these parameters are correlated.
 
-### Open access
+We will present results as means with 95% confidence intervals to focus on the size of any change. We will avoid using p-values as these are often misinterpreted and given too much importance.
 
-This protocol, the data and the R code will be published on GitHub: https://github.com/agbarnett/editors.
+To test the applicability of this random effects model we examined how it peformed on the data without the data on the change in editor-in-chief. 
+The Akaike Information Criterion (AIC) values are shown below. For reference, a decrease in the AIC of 10 is considered substantial.
+
+##### Table of AIC values for three mixed models 
+
+```{r AIC}
+load('Initial.mixed.model.results.RData') # from 1_test_mixed_model.R
+tab = AIC(model0, model1, model2)
+tab$Difference = NA
+tab$Difference[2:3] = tab$AIC[2:3] - tab$AIC[1:2]
+rownames(tab) = c('Intercept only','Plus linear slope','Plus quadratic')
+pander(tab, digits=0)
+```
+
+There is a huge improvement in model fit when including linear slopes per journal.
+There is a smaller but appreciable improvement in fit after also allowing quadratic (non-linear) changes over time per journal.
+
+#### Change variable
+
+The variable _change_ is 0 if there has been no change at the journal, and 1 after a change. We will use a fractional change dependent on the number of editors-in-chief. For example, if there were two editors and one changed whilst one remained, then the _change_ variable would be 0.5. We will assume a lag between a change in editor and impact on the proportion of female authors of six months. This lag is to account for the delay in the peer review and publishing process.
+
+##### Table of hypothetical changes in editor-in-chiefs to illustrate change variable
+
+```{r table}
+table = data.frame(Time = c(2013,2014,2015,2013,2014,2015,2013,2014,2015), 
+                   Journal=c(1,1,1,2,2,2,3,3,3), 
+                   Editors = c(1,1,1,2,1,1,1,2,2), 
+                   Initials = c('AB','CD','CD','EF,GH','EF','EF','HI','JK,LM','JK,LM'),
+                   Gender=c('M',"M","M","M,F","M","M","M","F,F","F,F"), 
+                   Change=c(0,1,1,0,0.5,0.5,0,1,1),
+                   Gender.change=c(0,0,0,0,0,0,0,1,1))
+table$Journal = c('Journal of X','Proceedings of Y','Open Z')[table$Journal]
+table$Time = as.character(table$Time) # prevent big.mark
+pander(table)
+```
+
+For the second journal, the change was 0.5, because one editor stayed on.
+
+The table also shows the additional variable of `Gender.change` which flags whether the editor change was also a change from male to female.
+
+#### Comparison with Holman et al (2018) model
+
+The regression model used by Holman et al (2018) allows for varying averages proportions between-journals and a varying change between-journal over time. The change over time is a non-linear curve that monotonically moves towards gender parity or the complete disappearance of one gender. This allowed the authors to predict trends for many decades. However, the non-linear features of this model appeared to be more useful for the long-term predictions and did not feature strongly in the observed data. Therefore our simpler model should provide an adequate fit for the data. 
+
+We tried to apply Holman's model in a Bayesian framework using WinBUGS, and we observed strong bimodality for some journals for the two parameters used to estimate the non-linear change over time (using random samples of 20 journals). This is an indication that the model specification needs changing. A random intercept and slope model fitted in a Bayesian framework showed no signs of bimodality.
+
+Five predictions from our mixed model were checked against the predictions from Holman et al (2018), and they showed a good visual agreement with the predictions from that model except for 'J Okla Dent Assoc'. This journal had a relatively low number of papers of 304, meaning there is less data to estimate the pattern over time.
+
+##### Plot of the predicted proportion of female authors over time for five randomly selected journals
+
+```{r predictions, fig.width=5, fig.height=5}
+## get data on journals and gender for individual papers (code from 1_test_mixed_model.R)
+load('For.Sample.Size.RData') # from 0_extract_data.R
+selected = filter(selected, year >= 2002)
+
+## Agreement between Holman and mixed model
+set.seed(1234) # to give repeatable results
+# get fitted values
+selected$fitted = predict(model2) # use most complex model with quadratic
+# randomly select five journals
+to.select = unique(selected$journal) # vector of possible journals
+n.journals = 5
+jselected = sample(to.select, replace=F, size=n.journals) 
+to.plot = dplyr::filter(selected, journal %in% jselected & n==1) # select on n=1 to give p
+# plot
+pplot = ggplot(data=to.plot, aes(x=date, y=exp(fitted), col=factor(journal)))+
+  geom_line(size=1.1)+
+  scale_color_manual('Journal', values=cbPalette)+
+  scale_y_continuous(breaks=seq(0,0.5,0.1))+
+  xlab('Time')+
+  ylab('Probability of female author')+
+  theme_bw()
+pplot
+# count results per journal
+count = dplyr::filter(selected, journal %in% jselected) %>%
+  group_by(journal) %>%
+  summarise(total = sum(n), n = n(), miny=min(year), maxy=max(year))
+```
+
+For all five journals the estimated proportion of female authors increased over time.
+The predictions were approximately linear, only the results for "Res Bras Parasitol Vet" had a slight curve.
+
+#### Correlation in random effects
+
+The scatter plots below shows the correlation in the random effects. These effects are the difference from the main effect, and so are centred on zero. It it clear that the journals with the lowest intercepts had relatively steeper positive slopes, indicating a greater "catch-up" from these journals.
+There was also a negative correlation between the quadratic non-linear change and the linear slope.
+
+```{r cor.matt}
+r = ranef(model2)$journal
+d1 = data.frame(x=r[,1], y=r[,2], facet=1)
+d2 = data.frame(x=r[,1], y=r[,3], facet=2)
+d3 = data.frame(x=r[,2], y=r[,3], facet=3)
+for.plot = rbind(d1, d2, d3)
+flabels = c('Slope vs Intercept', 'Quadratic vs Intercept', 'Quadratic vs Slope')
+for.plot$facetn = factor(for.plot$facet, 1:3, labels=flabels)
+splot = ggplot(data=for.plot, aes(x=x, y=y))+
+  geom_vline(xintercept = 0, col='dark red', lty=2)+
+  geom_hline(yintercept = 0, col='dark red', lty=2)+
+  geom_point()+
+  xlab('')+
+  ylab('')+
+  theme_bw()+
+  facet_wrap(~facetn, scales='free')+
+  theme(panel.grid.minor=element_blank())
+splot
+```
+
+#### Alternative modelling approach
+
+Our interest in the effect of a change in editor-in-chief, and we do not plan an analysis that examines the current gender of the editor(s)-in-chiefs and the current propotion of female authors. This is because we are interested in change within a journal, because examining within-journal change controls for the potential idiosyncrasies of a journal and its population of authors. Also, previous studies have shown how there has been change over time in the gender parity of authors and editors-in-chief, hence an analysis that examines change over time has merit.
+
+### Open science
+
+This study's protocol, data and _R_ code is on GitHub: https://github.com/agbarnett/editors.
+
+This protocol was written using _R Markdown_. 
 
 # References
 
+* Amrein K, et al (2011) Women Underrepresented on Editorial Boards of 60 Major Medical Journals. _Gender Medicine_ **8**(6):378-387
+
+* Dickersin K, et al (2010) Female editorship is an important indicator of gender imbalance _Journal of the Royal Society of Medicine_ **103**(1):5
+
+* Erren TC, Groß JV, Shaw DM, Selle B (2014) Representation of Women as Authors, Reviewers, Editors in Chief, and Editorial Board Members at 6 General Medical Journals in 2010 and 2011. _JAMA Intern Med_ **174**(4):633–635. doi:10.1001/jamainternmed.2013.14760
+
+* Fox CW, et al (2016) Editor and reviewer gender influence the peer review process but not peer review outcomes at an ecology journal. _Functional Ecology_  **30**(1): 140-153
+
+* Hamylton S, et al (2018) Gender inequalities in science won’t self-correct: it’s time for action _Nature Index_ https://www.natureindex.com/news-blog/gender-inequalities-in-science-wont-self-correct-its-time-for-action
+
+* Hatfield C, et al (1995) Sex of editor in medical journals _The Lancet_ **345**(8950):662
+https://doi.org/10.1016/S0140-6736(95)90572-3.
+
 * Holman L, Stuart-Fox D, Hauser CE (2018) The gender gap in science: How long until women are equally represented? _PLOS Biology_ **16**(4): e2004956. https://doi.org/10.1371/journal.pbio.2004956
 
-* Jagsi R, et al (2006) The “Gender Gap” in Authorship of Academic Medical Literature — A 35-Year Perspective. _New England Journal of Medicine_ **355**:281-7
+* Jagsi R, et al (2006) The “Gender Gap” in Authorship of Academic Medical Literature — A 35-Year Perspective. _New England Journal of Medicine_ **355**: 281-7
 
-* John Muschelli (2018). rscopus: Scopus Database 'API' Interface. https://dev.elsevier.com/sc_apis.html,
-  https://github.com/muschellij2/rscopus.
+* Long MT, et al (2015) Female authorship in major academic gastroenterology journals: A look over 20 years. _Gastrointestinal Endoscopy_ **81**(6): 1440-1447
 
-* Stewart A, Valian V (2018). An inclusive academy: Achieving diversity and excellence. Cambridge, MA: MIT Press
+* Moher D, et al (2018) Assessing scientists for hiring, promotion, and tenure. _PLOS Biology_ **16**(3): e2004089. https://doi.org/10.1371/journal.pbio.2004089
 
-* West JD, Jacquet J, King MM, Correll SJ, Bergstrom CT (2013) The Role of Gender in Scholarly Authorship. PLoS ONE 8(7): e66212. https://doi.org/10.1371/journal.pone.0066212
+* Murray D, et al (2018) Gender and international diversity improves equity in peer review. _bioRxiv_ 400515; doi: https://doi.org/10.1101/400515 
+
+* Muschelli J (2018). rscopus: Scopus Database 'API' Interface. https://dev.elsevier.com/sc_apis.html, https://github.com/muschellij2/rscopus.
+
+* National Academy of Sciences, National Academy of Engineering, and Institute of Medicine (2006) Committee on Maximizing the Potential of Women in Academic Science and Engineering, Beyond Bias and Barriers: Fulfilling the Potential of Women in Academic Science and Engineering. Washington, DC National Academies Press
+
+* Nature editors (2018) Nature’s under-representation of women: Women continue to form too small a proportion of this journal’s authors and referees. _Nature_ **558**: 344 doi: 10.1038/d41586-018-05465-7
+
+* Rexrode K (2016) The gender gap in first authorship of research papers. _BMJ_ **352**: i1130
+
+* Stewart A, Valian V (2018) An inclusive academy: Achieving diversity and excellence. Cambridge, MA: MIT Press
+
+* West JD, Jacquet J, King MM, Correll SJ, Bergstrom CT (2013) The Role of Gender in Scholarly Authorship. _PLoS ONE_ **8**(7): e66212. https://doi.org/10.1371/journal.pone.0066212
+

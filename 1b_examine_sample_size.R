@@ -24,14 +24,17 @@ ptable = filter(all.res, term=='changes') %>%
             upper = power + z*sqrt(power*(1-power)/count))
 ptable$n.journalsc = factor(paste('Journals=', ptable$n.journals)) # nicer facet label
 ptable$expected.change = ptable$expected.change * 100 # change to % for better labels
+# jitter
+index = ptable$prop.change.year == 0.15
+ptable$expected.change[index] = ptable$expected.change[index] +0.1
 # plot power
 power.plot = ggplot(data=ptable, aes(x=expected.change, y=power, ymin=lower, ymax=upper, col=factor(prop.change.year)))+
   geom_line(lwd=1.2)+
   scale_color_manual('Proportion of\neditors-in-chief\nchanging per year', values=cbPalette[2:4])+
-  geom_point()+
+  geom_point(size=3)+
   geom_errorbar(width=0, lwd=1.2)+
   theme_bw()+
-  scale_x_continuous(breaks=c(0,0.01,0.02))+
+  scale_x_continuous(breaks=c(0, 1, 2))+
   xlab('Increase in the percent of female authors')+
   ylab('Power to find difference, %')+
   facet_wrap(~n.journalsc)+
